@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="styles.css"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+        <header>
+		    <div class= "navbar">
+			    <button class = "btn btn-contacto">Contacto</button>
+                <button class = "btn btn-ayuda">Ayuda</button>
+			    
+		</header>
+	    <main id="main">
+		
+            <section class = "clase-carrito">
+                <h2 class="header">CARRITO</h2>
+                <div class="fila-carrito">
+                    <span class="header producto columna-carrito">PRODUCTO</span>
+                    <span class="header precio-carrito columna-carrito">PRECIO</span>
+                    <span class="header cantidad columna-carrito">CANTIDAD</span>
+                </div>
+                <div class="productos-carrito">
+                   
+                </div>
+                <div class="total-carrito">
+                    <strong class="total-carrito-titulo">TOTAL</strong>
+                    <span class="precio-total-carrito">$0</span>
+                </div>
+                <button class="btn btn-primario btn-Compra" type="button">TERMINAR COMPRA</button>
+            </section>
+
+            <h1>Catalogo</h1>
+
+            <div id = "fila">
+                <div id = "columna">
+                </div>
+            </div>
+            
+          
+        </main>
+        <footer id="fecha">
+            
+        </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
+    <script src="//cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script> 
+    <script src="./index.js"></script>
+</body>
+</html>

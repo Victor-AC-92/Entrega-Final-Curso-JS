@@ -1,0 +1,12 @@
+[
+    {"id": 1, "nombre": "Pan", "precio": 200, "img": "./Imagenes/Pan.PNG"},
+    {"id": 2, "nombre": "Arroz", "precio": 180, "img": "./Imagenes/Arroz.PNG"},
+    {"id": 3, "nombre": "Manteca", "precio": 250, "img": "./Imagenes/manteca.PNG"},
+    {"id": 4, "nombre": "Leche", "precio": 120, "img": "./Imagenes/leche.PNG"},
+    {"id": 5, "nombre": "Azucar", "precio": 150, "img": "./Imagenes/Azucar.PNG"},
+    {"id": 6, "nombre": "Galletas", "precio": 220, "img": "./Imagenes/Galletas.PNG"},
+    {"id": 7, "nombre": "Huevos", "precio": 450, "img": "./Imagenes/huevos.PNG"},
+    {"id": 8, "nombre": "Dulce de Leche", "precio": 380, "img": "./Imagenes/Dulce de Leche.PNG"},
+    {"id": 9, "nombre": "Mermelada", "precio": 270, "img": "./Imagenes/mermelada.PNG"},
+    {"id": 10, "nombre": "Café", "precio": 500, "img": "./Imagenes/Cafe.PNG"}
+]
