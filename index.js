@@ -22,7 +22,7 @@ function ready(){
     data.forEach((producto) => {
         const cadaProducto = document.createElement("div");
         cadaProducto.innerHTML = `<div class="card" id = "${producto.id}">
-                                  <div class="shop-item">
+                                  <div class="producto-tienda">
                                         <img class="imagen-card" src="${producto.img}" alt="${producto.nombre}" style="height:50px"><br>
                                         <span class="nombre-card">${producto.nombre}</span>
                                         <div class="detalles-producto">
@@ -67,9 +67,14 @@ function ready(){
     document.getElementsByClassName('btn-contacto')[0].addEventListener('click', mostrarContacto);
     document.getElementsByClassName('btn-ayuda')[0].addEventListener('click', mostrarAyuda);
 
-    obtenerProductosDeLocalStorage();
-    obtenerTotalDeLocalStorage();
-  }); 
+    if (localStorage.getItem("carrito") != null){
+      obtenerProductosDeLocalStorage();
+      cargarProductosAlLocalStorage();
+      obtenerTotalDeLocalStorage();
+      cargarTotalAlLocalStorage();
+    }
+    }
+  ); 
 }
 
 function mostrarContacto(){
@@ -128,10 +133,21 @@ function removerProducto(evento) {
 
 function cambioCantidad(evento) {
     let input = evento.target;
+    let productoCarrito = input.parentElement.parentElement
+    let titulo = productoCarrito.getElementsByClassName("carrito-titulo-producto")[0].innerHTML;
     (isNaN(input.value) || input.value <=0) && (input.value = 1);  
     actualizarTotalCarrito();
+    cargarCantidadAlLocalStorage(input, titulo);
 }
 
+function obtenerCantidadDelLocalStorage(input, titulo){
+  input.value = localStorage.getItem(`cantidad ${titulo}`);
+};
+
+function cargarCantidadAlLocalStorage(input, titulo){
+  let cantidadStorage = input.value
+  localStorage.setItem(`cantidad ${titulo}`, cantidadStorage)
+};
 
 function avisoCarritoPop() {
     let avisoCarrito = document.getElementById("snackbar");
@@ -146,8 +162,8 @@ function agregarProductoCarrito(evento) {
     let productoTienda = boton.parentElement.parentElement
     let titulo = productoTienda.getElementsByClassName("nombre-card")[0].innerHTML;
     let precio = productoTienda.getElementsByClassName("precio-card")[0].innerHTML;
-    let imagen = productoTienda.getElementsByClassName("imagen-card")[0].innerHTML;
-    
+    let imagen = productoTienda.getElementsByClassName("imagen-card")[0].src;
+        
     agregarProductoAlCarrito(titulo, precio, imagen);
     añadirAProductosACargar(titulo, precio, imagen);
     actualizarTotalCarrito();
@@ -155,19 +171,18 @@ function agregarProductoCarrito(evento) {
 }
   
 function agregarProductoAlCarrito(titulo, precio, imagen) {
-    let filaCarrito = document.createElement("div")
-    filaCarrito.classList.add('fila-carrito')
     let miCarrito = document.getElementsByClassName('productos-carrito')[0]
     let nombresProductosCarrito = miCarrito.getElementsByClassName('carrito-titulo-producto')
     for (let i = 0; i < nombresProductosCarrito.length; i++) {
         if (nombresProductosCarrito[i].innerText == titulo) {
-            alert('Este objeto ya ha sido añadido.')
-            document.getElementsByClassName("cantidad-carrito-input")[i].value = i++;
+            alert('Este objeto ya ha sido añadido.');
             return
         }
     }
+    let filaCarrito = document.createElement("div")
+    filaCarrito.classList.add('fila-carrito')
     let contenidoFilaCarrito = ` <div class="producto-carrito columna-carrito">
-                                    <img class= "carrito-imagen-producto" src="${imagen}" width="100" height="100"
+                                    <img class= "carrito-imagen-producto" src="${imagen}" style= "height:50px">
                                     <span class= "carrito-titulo-producto">${titulo}</span>
                                   </div>  
                                     <span class="precio-carrito columna-carrito">${precio}</span>
@@ -206,10 +221,12 @@ function actualizarTotalCarrito() {
       cargarTotalAlLocalStorage();
     }
     
-    function cargarTotalAlLocalStorage(){
-      localStorage.setItem("totalStorage", document.getElementsByClassName("precio-total-carrito")[0].innerText);
-    }    
+     cargarProductosAlLocalStorage();
 }
+
+function cargarTotalAlLocalStorage(){
+  localStorage.setItem("totalStorage", document.getElementsByClassName("precio-total-carrito")[0].innerText);
+}   
 
 function añadirAProductosACargar(titulo, precio, imagen){
   let producto = {titulo, precio, imagen}
@@ -221,7 +238,7 @@ function cargarProductosAlLocalStorage(){
 }
 
 function obtenerProductosDeLocalStorage(){
-  if(localStorage.getItem("carrito" != null)){
+  
     let carritoJSON = localStorage.getItem("carrito")
     let carritoObtenido = JSON.parse(carritoJSON)
     carritoObtenido.forEach(element => { 
@@ -231,12 +248,11 @@ function obtenerProductosDeLocalStorage(){
     agregarProductoAlCarrito(titulo, precio, imagen);
   })
 }
-}
+
 
 function obtenerTotalDeLocalStorage(){
-  if(totalStorage.getItem("totalStorage") != null){
     let totalStorage = localStorage.getItem("totalStorage")
     let total2 = totalStorage.substring(1)
     document.getElementsByClassName("precio-total-carrito")[0].innerText = "$"+total2; 
-  }
-}  
+  } 
+
